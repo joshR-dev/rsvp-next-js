@@ -1,6 +1,9 @@
+"use client";
+
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { HeartCanvas } from "@/app/components";
+import { addGuests } from "../../../../_actions/guestAction";
 
 const HEART_COLOR = "blue";
 const HEART_COLOR_DEFAULT = "white";
@@ -13,6 +16,8 @@ type Guest = {
 };
 
 const Confirmation = () => {
+	const [errorIndexes, setErrorIndexes] = useState<number[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 	const [isGoing, setIsGoing] = useState(false);
 	const [guests, setGuests] = useState<Guest[]>([
 		{ firstName: "", lastName: "" },
@@ -35,19 +40,54 @@ const Confirmation = () => {
 		setGuests([...guests, { firstName: "", lastName: "" }]);
 	};
 
-	const handleSubmit = (e: FormEvent) => {
+	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
-		const payload = guests.map((guest) => {
-			return {
-				...guest,
-				isGoing,
-			};
+		const isInvalid = guests.some((guest) => {
+			const { firstName, lastName } = guest;
+
+			if (!firstName || !lastName) return true;
 		});
 
-		console.log("api payload", payload);
-		// api call here to add guests to the database
+		if (isInvalid) return;
+
+		setErrorIndexes([]);
+
+		try {
+			setIsLoading(true);
+			const payload = guests.map((guest) => {
+				return {
+					...guest,
+					isGoing,
+				};
+			});
+
+			await addGuests(payload);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
+
+	useEffect(() => {
+		guests.forEach((guest, index) => {
+			const { firstName, lastName } = guest;
+			const hasError = errorIndexes.includes(index);
+
+			if ((!firstName || !lastName) && !hasError) {
+				setErrorIndexes([...errorIndexes, index]);
+			}
+
+			if (firstName && lastName && hasError) {
+				setErrorIndexes(
+					errorIndexes.filter((number) => number !== index)
+				);
+			}
+		});
+	}, [errorIndexes, guests]);
+
+	useEffect(() => console.log("error indexss", errorIndexes), [errorIndexes]);
 
 	return (
 		<section className={styles.section}>
@@ -88,31 +128,36 @@ const Confirmation = () => {
 				<div className={styles.inputs}>
 					{guests?.map(({ firstName, lastName }, index) => {
 						return (
-							<div key={index} className={styles.inputGroup}>
-								<div className={styles.input}>
-									<label htmlFor="firstName">
-										first name:
-									</label>
-									<input
-										type="text"
-										name="firstName"
-										value={firstName}
-										onChange={(e) =>
-											handleInputChange(index, e)
-										}
-									/>
+							<div key={index}>
+								<div className={styles.inputGroup}>
+									<div className={styles.input}>
+										<input
+											type="text"
+											name="firstName"
+											value={firstName}
+											placeholder="First Name"
+											onChange={(e) =>
+												handleInputChange(index, e)
+											}
+										/>
+									</div>
+									<div className={styles.input}>
+										<input
+											type="text"
+											name="lastName"
+											value={lastName}
+											placeholder="Last Name"
+											onChange={(e) =>
+												handleInputChange(index, e)
+											}
+										/>
+									</div>
 								</div>
-								<div className={styles.input}>
-									<label htmlFor="lastName">last name:</label>
-									<input
-										type="text"
-										name="lastName"
-										value={lastName}
-										onChange={(e) =>
-											handleInputChange(index, e)
-										}
-									/>
-								</div>
+								{errorIndexes.includes(index) ? (
+									<p className={styles.errorMessage}>
+										First name and last name are required.
+									</p>
+								) : null}
 							</div>
 						);
 					})}
@@ -124,8 +169,11 @@ const Confirmation = () => {
 					onClick={addGuest}>
 					add more guests
 				</button>
-				<button className={styles.submitBtn} type="submit">
-					submit
+				<button
+					className={styles.submitBtn}
+					type="submit"
+					disabled={isLoading}>
+					{isLoading ? "...loading" : "submit"}
 				</button>
 			</form>
 		</section>

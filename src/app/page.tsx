@@ -1,8 +1,7 @@
-"use client";
-
 import React from "react";
 import { Confirmation } from "./sections";
 import styles from "./page.module.css";
+import { getGuest } from "../../_actions/guestAction";
 
 const Home = () => {
 	return (

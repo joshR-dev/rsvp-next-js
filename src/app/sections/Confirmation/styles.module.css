@@ -15,6 +15,12 @@
 	height: fit-content;
 }
 
+.inputs {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
 .inputGroup {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -52,4 +58,8 @@
 
 .title {
 	text-align: center;
+}
+
+.errorMessage {
+	color: red;
 }
