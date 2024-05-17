@@ -1,0 +1,55 @@
+.actionsContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.btnWrapper {
+	text-align: center;
+}
+
+.actionBtn {
+	background: none;
+	border: 0;
+	height: fit-content;
+}
+
+.inputGroup {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+}
+
+.inputGroup input {
+	min-width: 0;
+	width: 100%;
+	height: 32px;
+	border-radius: 12px;
+}
+
+.submitBtn,
+.btn {
+	width: 100%;
+	height: 32px;
+	border-radius: 12px;
+	background: #f0f0f0;
+	border: 0;
+}
+
+.btn {
+	background-color: blueviolet;
+	color: white;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.title {
+	text-align: center;
+}
