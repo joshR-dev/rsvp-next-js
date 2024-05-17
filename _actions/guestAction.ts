@@ -21,13 +21,6 @@ export async function addGuests(guests: Guest[]) {
 	try {
 		await connectDB();
 
-		// const bulkUpdateOps = guests.map((item) => ({
-		// 	updateOne: {
-		// 		filter: { firstName: item.firstName, lastName: item.lastName },
-		// 		update: item,
-		// 	},
-		// }));
-
 		const bulkOperations = [];
 
 		for (const guest of guests) {
@@ -58,12 +51,6 @@ export async function addGuests(guests: Guest[]) {
 		}
 
 		const result = await GuestModel.bulkWrite(bulkOperations);
-
-		console.log("results", result);
-
-		// const savedItems = await GuestModel.bulkSave(
-		// 	guests.map((guest) => new GuestModel(guest))
-		// );
 
 		return JSON.parse(JSON.stringify(result));
 	} catch (error) {

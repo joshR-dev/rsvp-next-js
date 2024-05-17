@@ -1,0 +1,16 @@
+.actionsContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.btnWrapper {
+	text-align: center;
+}
+
+.actionBtn {
+	background: none;
+	border: 0;
+	height: fit-content;
+}
