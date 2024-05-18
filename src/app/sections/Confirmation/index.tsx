@@ -7,7 +7,7 @@ import { FrameSection } from "@/app/components";
 
 const Confirmation = () => {
 	return (
-		<FrameSection className={styles.section}>
+		<FrameSection id="information-section" className={styles.section}>
 			<h2 className={styles.title}>R.S.V.P</h2>
 			<p className={styles.text}>Kindly please RSVP by May 27</p>
 			<GuestForm />

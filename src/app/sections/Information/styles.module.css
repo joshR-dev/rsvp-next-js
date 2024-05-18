@@ -30,3 +30,13 @@
 .venue {
 	margin-top: 24px;
 }
+
+.indicator {
+	text-align: center;
+	margin-top: 24px;
+	display: block;
+	text-decoration: none;
+	color: #de6170;
+	font-weight: 700;
+	font-size: 18px;
+}

@@ -60,6 +60,9 @@ const Information = () => {
 						</div>
 					</div>
 				</div>
+				<Link href="#information-section" className={styles.indicator}>
+					Tap here to RSVP
+				</Link>
 			</FrameSection>
 		</>
 	);

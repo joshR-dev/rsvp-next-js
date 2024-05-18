@@ -1,18 +1,18 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { HTMLAttributes, ReactNode } from "react";
 import styles from "./styles.module.css";
 import Image from "next/image";
 import clsx from "clsx";
 
-type FrameSectionProps = {
+type FrameSectionProps = HTMLAttributes<HTMLDivElement> & {
 	children: ReactNode;
 	className?: string;
 };
 
-const FrameSection = ({ children, className }: FrameSectionProps) => {
+const FrameSection = ({ children, className, ...props }: FrameSectionProps) => {
 	return (
-		<section className={clsx(styles.section, className)}>
+		<section className={clsx(styles.section, className)} {...props}>
 			<Image
 				className={styles.background}
 				src="/images/rectangle.png"
