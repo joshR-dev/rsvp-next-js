@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import { HeartCanvas } from "@/app/components";
 
-const HEART_COLOR = "blue";
+const HEART_COLOR = "#C49799";
 const HEART_COLOR_DEFAULT = "white";
 
 export type HeartButtonsProps = {

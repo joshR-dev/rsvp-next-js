@@ -3,7 +3,11 @@
 	height: 32px;
 	border-radius: 12px;
 	border: 0;
-	background-color: blueviolet;
+	background-color: #f2b79f;
 	color: white;
 	text-transform: uppercase;
+}
+
+.btn:disabled {
+	background-color: #dbdbdb;
 }

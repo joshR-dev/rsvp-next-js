@@ -1,15 +1,18 @@
 import React from "react";
-import { Confirmation } from "./sections";
+import { Confirmation, DressCode, Information } from "./sections";
 import styles from "./page.module.css";
-import { getGuest } from "../../_actions/guestAction";
 
 const Home = () => {
 	return (
-		<main>
-			<div className={styles.container}>
-				<Confirmation />
-			</div>
-		</main>
+		<>
+			<main>
+				<div className={styles.container}>
+					<Information />
+					<Confirmation />
+					<DressCode />
+				</div>
+			</main>
+		</>
 	);
 };
 

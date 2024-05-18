@@ -14,8 +14,9 @@
 .inputGroup input {
 	min-width: 0;
 	width: 100%;
-	height: 32px;
 	border-radius: 12px;
+	padding: 8px;
+	border: 1px solid #202020;
 }
 
 .form {
@@ -27,12 +28,18 @@
 }
 
 .errorMessage {
-	color: red;
+	color: #ad343e;
 }
 
 .submitBtn {
-	background-color: #f0f0f0 !important;
-	color: #000 !important;
+	background-color: #de6170 !important;
+	color: #fff !important;
+}
+
+.submitBtn:hover,
+.submitBtn:focus {
+	background-color: #ad343e !important;
+	transition: all 0.3s ease-in-out;
 }
 
 .remove {
@@ -41,4 +48,13 @@
 	border: 0;
 	font-size: 24px;
 	left: -24px;
+}
+
+.submittedText {
+	font-size: 40px;
+	text-align: center;
+}
+
+.subtitle {
+	text-align: center;
 }

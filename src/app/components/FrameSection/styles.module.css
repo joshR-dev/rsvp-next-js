@@ -1,0 +1,23 @@
+.section {
+	position: relative;
+	padding: 24px;
+}
+
+.background {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	max-width: 400px;
+	z-index: -1;
+}
+
+.flowerBGWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.flowerBg {
+	margin-top: 24px;
+}

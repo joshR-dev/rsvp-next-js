@@ -52,10 +52,19 @@ export async function addGuests(guests: Guest[]) {
 
 		const result = await GuestModel.bulkWrite(bulkOperations);
 
-		return JSON.parse(JSON.stringify(result));
+		return JSON.parse(
+			JSON.stringify({
+				status: 200,
+				result,
+				msg: "Thank you for your response!",
+			})
+		);
 	} catch (error) {
 		console.error("error getting guests", error);
 
-		return { errMsg: error };
+		return {
+			status: 503,
+			msg: "Something went wrong in submitting. Please try again later.",
+		};
 	}
 }

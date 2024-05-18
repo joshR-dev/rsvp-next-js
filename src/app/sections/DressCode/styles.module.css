@@ -1,5 +1,9 @@
+.content {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
 .title,
-.subtitle,
 .text {
 	text-align: center;
 }
@@ -8,14 +12,9 @@
 	font-family: "Rochester", cursive;
 	font-size: 40px;
 	font-weight: 400;
-	margin-bottom: 24px;
+	margin-bottom: 62px;
 }
 
 .text {
 	margin-bottom: 24px;
-}
-
-.clarificationText {
-	margin-top: 24px;
-	text-align: center;
 }

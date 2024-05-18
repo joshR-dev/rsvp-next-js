@@ -21,6 +21,8 @@ const GuestForm = () => {
 	const [guests, setGuests] = useState<Guest[]>([
 		{ firstName: "", lastName: "" },
 	]);
+	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [submitMessage, setSubmitMessage] = useState(null);
 
 	const handleInputChange = (
 		index: number,
@@ -60,18 +62,22 @@ const GuestForm = () => {
 
 		try {
 			setIsLoading(true);
-			const payload = guests.map((guest) => {
+			const payload = guests.map((guest: Guest) => {
 				return {
-					...guest,
+					firstName: guest.firstName.toLowerCase(),
+					lastName: guest.lastName.toLowerCase(),
 					isGoing,
 				};
 			});
 
-			await addGuests(payload);
+			const response = await addGuests(payload);
+
+			setSubmitMessage(response.msg);
 		} catch (error) {
 			console.error(error);
 		} finally {
 			setIsLoading(false);
+			setIsSubmitted(true);
 		}
 	};
 
@@ -91,69 +97,77 @@ const GuestForm = () => {
 			}
 		});
 	}, [errorIndexes, guests]);
+
+	if (isSubmitted) {
+		return <p className={styles.submittedText}>{submitMessage}</p>;
+	}
+
 	return (
-		<form className={styles.form} onSubmit={handleSubmit}>
-			<HeartButtons isGoing={isGoing} setIsGoing={setIsGoing} />
-			<h4>Guests:</h4>
-			<div className={styles.inputs}>
-				{guests?.map(({ firstName, lastName }, index) => {
-					return (
-						<div key={index}>
-							<div className={styles.inputGroup}>
-								{index > 0 ? (
-									<button
-										type="button"
-										onClick={() => removeGuest(index)}
-										className={styles.remove}>
-										x
-									</button>
+		<>
+			<h3 className={styles.subtitle}>Are you going to the event?</h3>
+			<form className={styles.form} onSubmit={handleSubmit}>
+				<HeartButtons isGoing={isGoing} setIsGoing={setIsGoing} />
+				<h4>Guests:</h4>
+				<div className={styles.inputs}>
+					{guests?.map(({ firstName, lastName }, index) => {
+						return (
+							<div key={index}>
+								<div className={styles.inputGroup}>
+									{index > 0 ? (
+										<button
+											type="button"
+											onClick={() => removeGuest(index)}
+											className={styles.remove}>
+											x
+										</button>
+									) : null}
+									<div className={styles.input}>
+										<input
+											type="text"
+											name="firstName"
+											value={firstName}
+											placeholder="First Name"
+											onChange={(e) =>
+												handleInputChange(index, e)
+											}
+										/>
+									</div>
+									<div className={styles.input}>
+										<input
+											type="text"
+											name="lastName"
+											value={lastName}
+											placeholder="Last Name"
+											onChange={(e) =>
+												handleInputChange(index, e)
+											}
+										/>
+									</div>
+								</div>
+								{errorIndexes.includes(index) ? (
+									<p className={styles.errorMessage}>
+										First name and last name are required.
+									</p>
 								) : null}
-								<div className={styles.input}>
-									<input
-										type="text"
-										name="firstName"
-										value={firstName}
-										placeholder="First Name"
-										onChange={(e) =>
-											handleInputChange(index, e)
-										}
-									/>
-								</div>
-								<div className={styles.input}>
-									<input
-										type="text"
-										name="lastName"
-										value={lastName}
-										placeholder="Last Name"
-										onChange={(e) =>
-											handleInputChange(index, e)
-										}
-									/>
-								</div>
 							</div>
-							{errorIndexes.includes(index) ? (
-								<p className={styles.errorMessage}>
-									First name and last name are required.
-								</p>
-							) : null}
-						</div>
-					);
-				})}
-			</div>
-			<Button
-				className={styles.btn}
-				type="button"
-				disabled={guests.length === MAX_GUESTS}
-				onClick={addGuest}>
-				add more guests
-			</Button>
-			<Button
-				className={styles.submitBtn}
-				type="submit"
-				disabled={isLoading}>
-				{isLoading ? "...loading" : "submit"}
-			</Button>
-		</form>
+						);
+					})}
+				</div>
+				<Button
+					className={styles.btn}
+					type="button"
+					disabled={guests.length === MAX_GUESTS}
+					onClick={addGuest}>
+					add more guests
+				</Button>
+				<Button
+					className={styles.submitBtn}
+					type="submit"
+					disabled={isLoading}>
+					{isLoading ? "...loading" : "submit"}
+				</Button>
+			</form>
+		</>
 	);
 };
 

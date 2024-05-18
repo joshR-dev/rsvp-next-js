@@ -1,0 +1,32 @@
+.container {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 24px;
+}
+
+.title {
+	font-family: "Rochester", cursive;
+	font-size: 40px;
+	font-weight: 400;
+}
+
+.joinUs {
+	font-size: 14px;
+}
+
+.date {
+	font-size: 16px;
+	margin-bottom: 12px;
+}
+
+.details {
+	line-height: 150%;
+	font-size: 14px;
+}
+
+.venue {
+	margin-top: 24px;
+}
