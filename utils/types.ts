@@ -10,4 +10,5 @@ export type Guest = {
 	firstName: string;
 	lastName: string;
 	isGoing: boolean;
+	isAddedBy?: string;
 };

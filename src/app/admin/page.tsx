@@ -53,10 +53,11 @@ const Admin = () => {
 				<div className={styles.headers}>
 					<p className={styles.text}>Full Name</p>
 					<p className={styles.text}>Is Going?</p>
+					<p className={styles.text}>Added By?</p>
 				</div>
 				<div className={styles.guestList}>
 					{filteredGuests?.map(
-						({ firstName, lastName, _id, isGoing }) => {
+						({ firstName, lastName, _id, isGoing, isAddedBy }) => {
 							const fullName = `${firstName} ${lastName}`;
 							const isGoingText = isGoing ? "Yes" : "No";
 
@@ -65,6 +66,9 @@ const Admin = () => {
 									<p className={styles.name}>{fullName}</p>
 									<p className={styles.isGoing}>
 										{isGoingText}
+									</p>
+									<p className={styles.isGoing}>
+										{isAddedBy}
 									</p>
 								</div>
 							);

@@ -10,6 +10,10 @@ const guestSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		isAddedBy: {
+			type: String,
+			required: true,
+		},
 		isGoing: {
 			type: Boolean,
 			required: true,

@@ -21,6 +21,8 @@ export async function addGuests(guests: Guest[]) {
 	try {
 		await connectDB();
 
+		console.log("guestss", guests);
+
 		const bulkOperations = [];
 
 		for (const guest of guests) {

@@ -5,21 +5,16 @@ import styles from "./styles.module.css";
 import { addGuests } from "../../../../../../_actions/guestAction";
 import { Button, HeartCanvas } from "@/app/components";
 import HeartButtons from "../HeartButtons";
+import { Guest } from "../../../../../../utils/types";
 
 const MAX_GUESTS = 5;
-
-type Guest = {
-	firstName: string;
-	lastName: string;
-	isGoing?: boolean;
-};
 
 const GuestForm = () => {
 	const [errorIndexes, setErrorIndexes] = useState<number[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isGoing, setIsGoing] = useState(false);
 	const [guests, setGuests] = useState<Guest[]>([
-		{ firstName: "", lastName: "" },
+		{ firstName: "", lastName: "", isGoing },
 	]);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [submitMessage, setSubmitMessage] = useState(null);
@@ -38,7 +33,7 @@ const GuestForm = () => {
 	};
 
 	const addGuest = () => {
-		setGuests([...guests, { firstName: "", lastName: "" }]);
+		setGuests([...guests, { firstName: "", lastName: "", isGoing }]);
 	};
 
 	const removeGuest = (currentIndex: number) => {
@@ -53,7 +48,7 @@ const GuestForm = () => {
 		const isInvalid = guests.some((guest) => {
 			const { firstName, lastName } = guest;
 
-			if (!firstName || !lastName) return true;
+			if (!firstName.trim() || !lastName.trim()) return true;
 		});
 
 		if (isInvalid) return;
@@ -64,11 +59,14 @@ const GuestForm = () => {
 			setIsLoading(true);
 			const payload = guests.map((guest: Guest) => {
 				return {
-					firstName: guest.firstName.toLowerCase(),
-					lastName: guest.lastName.toLowerCase(),
+					firstName: guest.firstName.trim().toLowerCase(),
+					lastName: guest.lastName.trim().toLowerCase(),
 					isGoing,
+					isAddedBy: `${guests[0].firstName} ${guests[0].lastName}`,
 				};
 			});
+
+			console.log("payload", payload);
 
 			const response = await addGuests(payload);
 
@@ -113,14 +111,6 @@ const GuestForm = () => {
 						return (
 							<div key={index}>
 								<div className={styles.inputGroup}>
-									{index > 0 ? (
-										<button
-											type="button"
-											onClick={() => removeGuest(index)}
-											className={styles.remove}>
-											x
-										</button>
-									) : null}
 									<div className={styles.input}>
 										<input
 											type="text"
@@ -144,11 +134,22 @@ const GuestForm = () => {
 										/>
 									</div>
 								</div>
-								{errorIndexes.includes(index) ? (
-									<p className={styles.errorMessage}>
-										First name and last name are required.
-									</p>
-								) : null}
+								<div className={styles.messages}>
+									{errorIndexes.includes(index) ? (
+										<p className={styles.errorMessage}>
+											First name and last name are
+											required.
+										</p>
+									) : null}
+									{index > 0 ? (
+										<button
+											type="button"
+											onClick={() => removeGuest(index)}
+											className={styles.remove}>
+											remove
+										</button>
+									) : null}
+								</div>
 							</div>
 						);
 					})}

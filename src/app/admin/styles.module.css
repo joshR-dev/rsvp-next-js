@@ -10,7 +10,7 @@
 .guest,
 .headers {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
 .headers {
@@ -34,7 +34,8 @@
 	padding: 12px;
 	background-color: #fa8072;
 	width: 100%;
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 	align-items: center;
 	justify-content: space-between;
 	border-top-right-radius: 15px;
