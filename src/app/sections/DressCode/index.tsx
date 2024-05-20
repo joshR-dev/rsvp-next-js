@@ -15,8 +15,7 @@ const DressCode = () => {
 				</p>
 				<p className={styles.text}>
 					For Family, Relatives and Friends: You may wear casual
-					clothes, pastel colors will do but please avoid wearing dark
-					colors. Thank you.
+					clothes. Thank you.
 				</p>
 			</div>
 		</FrameSection>

@@ -104,7 +104,6 @@ const GuestForm = () => {
 		<>
 			<h3 className={styles.subtitle}>Are you going to the event?</h3>
 			<form className={styles.form} onSubmit={handleSubmit}>
-				<HeartButtons isGoing={isGoing} setIsGoing={setIsGoing} />
 				<h4>Guests:</h4>
 				<div className={styles.inputs}>
 					{guests?.map(({ firstName, lastName }, index) => {

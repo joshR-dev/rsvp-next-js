@@ -52,7 +52,6 @@ const Admin = () => {
 				/>
 				<div className={styles.headers}>
 					<p className={styles.text}>Full Name</p>
-					<p className={styles.text}>Is Going?</p>
 					<p className={styles.text}>Added By?</p>
 				</div>
 				<div className={styles.guestList}>
@@ -65,9 +64,6 @@ const Admin = () => {
 								<div className={styles.guest} key={_id}>
 									<p className={styles.name}>{fullName}</p>
 									<p className={styles.isGoing}>
-										{isGoingText}
-									</p>
-									<p className={styles.isGoing}>
 										{isAddedBy}
 									</p>
 								</div>
@@ -79,14 +75,6 @@ const Admin = () => {
 					<p className={styles.total}>
 						<span className={styles.totalText}>Total: </span>
 						{guestLists.length}
-					</p>
-					<p className={styles.total}>
-						<span className={styles.totalText}>Going: </span>
-						{goingCount}
-					</p>
-					<p className={styles.total}>
-						<span className={styles.totalText}>Not Going: </span>
-						{notGoingCount}
 					</p>
 				</div>
 			</div>
