@@ -54,7 +54,7 @@ const Information = () => {
 									href="https://maps.app.goo.gl/oE1d4mFptideFcdJ7"
 									target="_blank">
 									{" "}
-									Farm Hills Garden Tagaytay
+									Farm Hills Garden Tagaytay at 12 noon
 								</Link>
 							</p>
 						</div>
